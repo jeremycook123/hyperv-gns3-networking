@@ -90,3 +90,8 @@ Connect-VMNetworkAdapter -VMName "GNS3 VM" -SwitchName "$SwitchName"
 
 Set-VMProcessor -VMName $VMName -ExposeVirtualizationExtensions $true
 Set-VMNetworkAdapter -VMName $VMName -MacAddressSpoofing On
+
+# Start GNS3 VM
+# ============================
+
+Start-VM -Name "$VMName"
