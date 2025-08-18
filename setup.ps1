@@ -80,7 +80,7 @@ do {
 } while ($attempt -lt $maxRetries)
 
 # Port Forwarding for IPsec
-netsh interface portproxy add v4tov4 listenport=500 listenaddress=1$PublicIP connectport=500 connectaddress=192.168.100.200
+netsh interface portproxy add v4tov4 listenport=500 listenaddress=$PublicIP connectport=500 connectaddress=192.168.100.200
 netsh interface portproxy add v4tov4 listenport=4500 listenaddress=$PublicIP connectport=4500 connectaddress=192.168.100.200
 
 # Update GNS3 VM to use the new switch
