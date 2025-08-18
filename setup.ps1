@@ -41,7 +41,7 @@ if (-not $NetAdapter) {
 # Remove existing NAT if it exists
 $existingNat = Get-NetNat -Name $NATName -ErrorAction SilentlyContinue
 if ($existingNat) {
-    Remove-NetNat -Name $NATName
+    Remove-NetNat -Name $NATName -Confirm:$false
 }
 
 New-NetNat -Name $NATName -InternalIPInterfaceAddressPrefix $NATPrefix
