@@ -4,6 +4,8 @@ $IPAddress = "192.168.100.1"
 $SubnetMask = "255.255.255.0"
 $NATName = "NATNetwork"
 $NATPrefix = "192.168.100.0/24"
+$NewMemoryGB = 24
+$NewMemoryBytes = $NewMemoryGB * 1GB
 
 # Create new VM switch
 # ============================
@@ -90,6 +92,22 @@ Connect-VMNetworkAdapter -VMName "GNS3 VM" -SwitchName "$SwitchName"
 
 Set-VMProcessor -VMName $VMName -ExposeVirtualizationExtensions $true
 Set-VMNetworkAdapter -VMName $VMName -MacAddressSpoofing On
+
+# Update VM Memory
+# ============================
+
+# Check if the VM exists
+$vm = Get-VM -Name $VMName -ErrorAction SilentlyContinue
+if (-not $vm) {
+    Write-Host "VM '$VMName' not found." -ForegroundColor Red
+    exit
+}
+
+# Enable Dynamic Memory and set memory limits
+Write-Host "Updating memory settings for VM '$VMName'..."
+Set-VMMemory -VMName $VMName -DynamicMemoryEnabled $true -MaximumBytes $NewMemoryBytes
+
+Write-Host "Memory update complete." -ForegroundColor Green
 
 # Start GNS3 VM
 # ============================
