@@ -113,3 +113,20 @@ Write-Host "Memory update complete." -ForegroundColor Green
 # ============================
 
 Start-VM -Name "$VMName"
+
+# Download Lab scripts
+# ============================
+
+$Url = "https://raw.githubusercontent.com/jeremycook123/hyperv-gns3-networking/main/vpn-config.ps1"
+$DestinationDir = "C:\Users\student\lab"
+$DestinationFile = Join-Path $DestinationDir "vpn-config.ps1"
+
+# Ensure the destination directory exists
+if (!(Test-Path $DestinationDir)) {
+    New-Item -ItemType Directory -Path $DestinationDir -Force
+}
+
+# Download the file
+Invoke-WebRequest -Uri $Url -OutFile $DestinationFile
+
+Write-Host "vpn-config.ps1 has been downloaded and moved to $DestinationFile"
