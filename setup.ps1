@@ -1,3 +1,15 @@
+param (
+    [string]$ResourceGroup
+)
+
+# Environment Vars
+# ============================
+
+[System.Environment]::SetEnvironmentVariable("Lab_RG", "$ResourceGroup", "Machine")
+
+# Vars
+# ============================
+
 $VMName = "GNS3 VM"
 $SwitchName = "InternalSwitch"
 $IPAddress = "192.168.100.1"
