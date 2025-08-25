@@ -23,26 +23,28 @@ $VGW_PUBLIC_IP1 = az network public-ip show --ids $PUBLIC_IP_IDS[0] | ConvertFro
 $VGW_PUBLIC_IP2 = az network public-ip show --ids $PUBLIC_IP_IDS[1] | ConvertFrom-Json
 
 # Display the IP addresses
-Write-Host "Tunnel 1 Public IP: $($VGW_PUBLIC_IP1.ipAddress)"
-Write-Host "Tunnel 2 Public IP: $($VGW_PUBLIC_IP2.ipAddress)"
+Write-Host "Azure Tunnel 1 Outside IP: $($VGW_PUBLIC_IP1.ipAddress)"
+Write-Host "Azure Tunnel 2 Outside IP: $($VGW_PUBLIC_IP2.ipAddress)"
 
 # Build the configuration content
 $config = @"
-# ESP + IKE ===========
+# IKE + ESP ===========
 
-set vpn ipsec esp-group ESP-GROUP lifetime '3600'
-set vpn ipsec esp-group ESP-GROUP pfs disable
-set vpn ipsec esp-group ESP-GROUP proposal 1 encryption 'aes256'
-set vpn ipsec esp-group ESP-GROUP proposal 1 hash 'sha1'
-
+# IKE Group (Phase 1)
 set vpn ipsec ike-group IKE-GROUP dead-peer-detection action 'restart'
 set vpn ipsec ike-group IKE-GROUP dead-peer-detection interval '10'
 set vpn ipsec ike-group IKE-GROUP dead-peer-detection timeout '30'
 set vpn ipsec ike-group IKE-GROUP key-exchange 'ikev2'
 set vpn ipsec ike-group IKE-GROUP lifetime '28800'
-set vpn ipsec ike-group IKE-GROUP proposal 1 dh-group '2'
+set vpn ipsec ike-group IKE-GROUP proposal 1 dh-group '14'
 set vpn ipsec ike-group IKE-GROUP proposal 1 encryption 'aes256'
-set vpn ipsec ike-group IKE-GROUP proposal 1 hash 'sha1'
+set vpn ipsec ike-group IKE-GROUP proposal 1 hash 'sha256'
+
+# ESP Group (Phase 2)
+set vpn ipsec esp-group ESP-GROUP proposal 1 encryption 'aes256'
+set vpn ipsec esp-group ESP-GROUP proposal 1 hash 'sha256'
+set vpn ipsec esp-group ESP-GROUP pfs 'enable'
+set vpn ipsec esp-group ESP-GROUP lifetime '27000'
 
 # TUNNEL 1 ===========
 
@@ -95,3 +97,5 @@ set vpn ipsec site-to-site peer Azure-T2 force-udp-encapsulation
 
 # Write to output file
 $config | Set-Content -Path "vpn-config.txt"
+
+Write-Host "Azure Tunnel config saved to vpn-config.txt"
