@@ -48,7 +48,7 @@ set vpn ipsec esp-group ESP-GROUP lifetime '27000'
 
 # TUNNEL 1 ===========
 
-set interfaces vti vti0 address '169.254.0.1/30'
+set interfaces vti vti0 address '169.254.100.1/30'
 set interfaces vti vti0 description 'VPG tunnel 1'
 set interfaces vti vti0 ip adjust-mss 1350
 set interfaces vti vti0 mtu '1436'
@@ -72,7 +72,7 @@ set vpn ipsec site-to-site peer AWS-T1 force-udp-encapsulation
 
 # TUNNEL 2 ===========
 
-set interfaces vti vti1 address '169.254.0.2/30'
+set interfaces vti vti1 address '169.254.200.1/30'
 set interfaces vti vti1 description 'VPG tunnel 2'
 set interfaces vti vti1 ip adjust-mss 1350
 set interfaces vti vti1 mtu '1436'
