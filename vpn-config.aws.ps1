@@ -53,6 +53,7 @@ set interfaces vti vti0 description 'VPG tunnel 1'
 set interfaces vti vti0 ip adjust-mss 1350
 set interfaces vti vti0 mtu '1436'
 
+# cloud private network
 set protocols static route 10.0.0.0/16 interface vti0
 set protocols static route 10.2.0.0/16 interface vti0
 
@@ -77,6 +78,7 @@ set interfaces vti vti1 description 'VPG tunnel 2'
 set interfaces vti vti1 ip adjust-mss 1350
 set interfaces vti vti1 mtu '1436'
 
+# cloud private network
 set protocols static route 10.0.0.0/16 interface vti1
 set protocols static route 10.2.0.0/16 interface vti1
 
