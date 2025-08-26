@@ -89,7 +89,7 @@ set vpn ipsec site-to-site peer AWS-T2 connection-type 'initiate'
 set vpn ipsec site-to-site peer AWS-T2 description 'ipsec'
 set vpn ipsec site-to-site peer AWS-T2 ike-group IKE-GROUP
 set vpn ipsec site-to-site peer AWS-T2 local-address '192.168.100.200'
-set vpn ipsec site-to-site peer AWS-T1 remote-address '$VGW_PUBLIC_IP2'
+set vpn ipsec site-to-site peer AWS-T2 remote-address '$VGW_PUBLIC_IP2'
 set vpn ipsec site-to-site peer AWS-T2 vti bind 'vti1'
 set vpn ipsec site-to-site peer AWS-T2 vti esp-group ESP-GROUP
 set vpn ipsec site-to-site peer AWS-T2 force-udp-encapsulation
