@@ -129,7 +129,7 @@ Start-VM -Name "$VMName"
 # Download Lab scripts
 # ============================
 
-$Url = "https://raw.githubusercontent.com/jeremycook123/hyperv-gns3-networking/main/vpn-config.ps1"
+$Url = "https://raw.githubusercontent.com/jeremycook123/hyperv-gns3-networking/main/vpn-config.azure.ps1"
 $DestinationDir = "C:\Users\student\lab"
 $DestinationFile = Join-Path $DestinationDir "vpn-config.ps1"
 
