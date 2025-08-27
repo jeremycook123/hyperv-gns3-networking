@@ -7,8 +7,6 @@ $IPAddress = "192.168.100.1"
 $SubnetMask = "255.255.255.0"
 $NATName = "NATNetwork"
 $NATPrefix = "192.168.100.0/24"
-$NewMemoryGB = 24
-$NewMemoryBytes = $NewMemoryGB * 1GB
 
 # Create new VM switch
 # ============================
@@ -106,9 +104,12 @@ if (-not $vm) {
     exit
 }
 
-# Enable Dynamic Memory and set memory limits
-Write-Host "Updating memory settings for VM '$VMName'..."
-Set-VMMemory -VMName $VMName -DynamicMemoryEnabled $true -MaximumBytes $NewMemoryBytes
+# Update memory limit
+$StartupMemoryBytes = 24GB
+
+Set-VMMemory -VMName $VMName `
+    -DynamicMemoryEnabled $false `
+    -StartupBytes $StartupMemoryBytes
 
 Write-Host "Memory update complete." -ForegroundColor Green
 
