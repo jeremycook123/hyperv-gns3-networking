@@ -82,7 +82,7 @@ set interfaces vti vti1 mtu '1436'
 set protocols static route 10.0.0.0/16 interface vti1
 set protocols static route 10.2.0.0/16 interface vti1
 
-set vpn ipsec authentication psk AWS-T2 id $VGW_PUBLIC_IP1
+set vpn ipsec authentication psk AWS-T2 id $VGW_PUBLIC_IP2
 set vpn ipsec authentication psk AWS-T2 id 192.168.100.200
 set vpn ipsec authentication psk AWS-T2 secret '$PRESHARED_KEY'
 
