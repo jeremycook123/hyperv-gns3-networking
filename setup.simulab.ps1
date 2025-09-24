@@ -67,11 +67,17 @@ if (-not $vm) {
     exit
 }
 
-# Update memory limit
-$StartupMemoryBytes = 24GB
+# Update memory and cores limit
+$StartupMemoryBytes = 48GB
+$NumberOfCores = 8
 
 Set-VMMemory -VMName $VMName `
     -DynamicMemoryEnabled $false `
     -StartupBytes $StartupMemoryBytes
 
-Write-Host "Memory update complete." -ForegroundColor Green
+Write-Host "VM memory set to $([math]::Round($StartupMemoryBytes / 1GB))GB" -ForegroundColor Green
+
+Set-VMProcessor -VMName $VMName `
+    -Count $NumberOfCores
+
+Write-Host "VM virtual cores set to $NumberOfCores" -ForegroundColor Green
